@@ -1,2 +1,4 @@
 bot_venv/
+__pycache__/
 *.jpg
+!test.jpg

@@ -10,6 +10,8 @@ from telegram import PhotoSize
 
 ### import from python-telegram-bot-module end ###
 
+import whole_pic
+
 TOKEN = '1179333777:AAH-HWef2NLcvRQtZUdLruw0Hy4oRQQLg-0'
 
 update = Updater(TOKEN, use_context=True)
@@ -20,7 +22,7 @@ def start(update, context):
     chat_id = update.message.chat_id
 
     context.bot.send_chat_action(chat_id, ChatAction.TYPING)
-    context.bot.send_message(chat_id, 'سلام به همه دوستای خوبم😁😁\nخوشحالم از این بات استفاده می کنید😍🥰😍\nاین ربات یه کار ساده انجام میده. عکس رو از شما میگیره و روی اون یه کاور میزاره و دوباره براتون ارسال می کنه☺\nفقط کافیه عکسو براش ارسال کنید😉🙃')
+    context.bot.send_message(chat_id, 'سلام به همه دوستای خوبم😁😁\nخوشحالم از این بات استفاده می کنید😍🥰😍\nاین ربات یه کار ساده انجام میده. عکس رو از شما میگیره و روی اون یه کاور میزاره و دوباره براتون ارسال می کنه☺\nفقط کافیه عکسو براش ارسال کنید😉🙃\nبا اجرای دستور /all می تونید به تمام عکس ها با کاور انجمن علمی دانشگاه دسترسی داشته باشید')
 
 
 # function send_image run when user send an image for robot
@@ -56,14 +58,26 @@ def send_image(update, context):
     new_img.close()
 
 
+# function all_pic run when user enter /all command in telegram
+def all_pic(update, context):
+    chat_id = update.message.chat_id
+    # call create_whole_pic function from whole_pic.py file
+    whole_pic.create_whole_pic()
+    all_img = open('./whole_pic.jpg', 'rb')
+    context.bot.send_chat_action(chat_id, ChatAction.UPLOAD_PHOTO)
+    context.bot.send_photo(chat_id, all_img)
+
+
 # add handlers to robot
 start_command = CommandHandler('start', start)
 image_message_handler = MessageHandler(Filters.photo, send_image)
+all_pic_handler = CommandHandler('all', all_pic)
 
 
 # dispatch handlers
 dispatcher.add_handler(start_command)
 dispatcher.add_handler(image_message_handler)
+dispatcher.add_handler(all_pic_handler)
 
 
 # run robot in telegram
