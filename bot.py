@@ -12,7 +12,7 @@ from telegram import PhotoSize
 
 import whole_pic
 
-TOKEN = '1179333777:AAH-HWef2NLcvRQtZUdLruw0Hy4oRQQLg-0'
+TOKEN = 'Your Token'
 
 update = Updater(TOKEN, use_context=True)
 dispatcher = update.dispatcher
